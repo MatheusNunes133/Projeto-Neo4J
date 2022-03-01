@@ -19,6 +19,7 @@ const neo4j = require('./neo4j/neo4j')
 
 //Adicionando caminhos para execução das funções
 app.post('/createNewUser', neo4j.createNewUser)
+app.post('/createNewRelationship', neo4j.createNewRelationship)
 
 
 //Setando servidor na porta 3000
