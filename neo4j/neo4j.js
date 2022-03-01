@@ -8,3 +8,22 @@ const driver = neo4j.driver(uri, neo4j.auth.basic(
 ))
 
 const session = driver.session()
+
+//Criando função para adicionar um novo usuário
+async function createNewUser(req, res){
+    const { name, email, data, time, timeZone} = req.body
+    try{
+        const query = `create(:Pessoa{name: '${name}', email: '${email}', data: '${data}', time: '${time}', timeZone: '${timeZone}'})`
+        await session.run(query)
+        console.log('Usuário inserido com sucesso!')
+        return res.status(200).send()
+    }catch(error){
+        console.log(error)
+    }finally{
+        await session.close()
+    }
+}
+
+module.exports = {
+    createNewUser
+}
