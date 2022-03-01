@@ -6,7 +6,7 @@ let obj = {
 	time: data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds() + ":" + data.getMilliseconds(),
 	timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 	name: 'Matheus',
-	email: 'teste@gmail.com'
+	email: 'matheus@matheus.com'
 }
 
 fetch('http://localhost:3000/createNewUser',{
@@ -22,5 +22,30 @@ fetch('http://localhost:3000/createNewUser',{
             console.log('Usuário adicionado com sucesso!')
         }else{
             console.log('Falha ao adicionar usuário')
+        }
+})
+
+
+//Criando um novo realcionamento
+
+let obj = {
+  	firstUserEmail: 'matheus@matheus.com',
+	secondUserEmail: 'vitoria@vitoria.com',
+	relationshipType: 'Amigo'
+}
+
+fetch('http://localhost:3000/createNewRelationship',{
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': '*'
+    },
+    body: JSON.stringify(obj)
+}).then((resp)=>{
+        if(resp.status ==200){
+            console.log('Relacionamento adicionado com sucesso!')
+        }else{
+            console.log('Falha ao adicionar relacionamento')
         }
 })
