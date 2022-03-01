@@ -14,7 +14,14 @@ app.use(function(req, res, next){
     next()
 });
 
+//Importando arquivo onde estão as funções do Neo4J
+const neo4j = require('./neo4j/neo4j')
 
+//Adicionando caminhos para execução das funções
+app.post('/createNewUser', neo4j.createNewUser)
+
+
+//Setando servidor na porta 3000
 app.listen(port, ()=>{
     console.log(`Server online na porta: ${port}`)
 })
