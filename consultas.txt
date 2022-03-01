@@ -1,0 +1,26 @@
+//Criar um novo usuário
+const data = new Date()
+
+let obj = {
+	data: data.getFullYear() + "-" + data.getMonth() + "-" + data.getDate(),
+	time: data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds() + ":" + data.getMilliseconds(),
+	timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+	name: 'Matheus',
+	email: 'teste@gmail.com'
+}
+
+fetch('http://localhost:3000/createNewUser',{
+    method: 'POST',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Headers': '*'
+    },
+    body: JSON.stringify(obj)
+}).then((resp)=>{
+        if(resp.status ==200){
+            console.log('Usuário adicionado com sucesso!')
+        }else{
+            console.log('Falha ao adicionar usuário')
+        }
+})
