@@ -2,7 +2,7 @@
 const data = new Date()
 
 let obj = {
-	data: data.getFullYear() + "-" + data.getMonth() + "-" + data.getDate(),
+	data: data.getFullYear() + "-" + (data.getMonth()+1) + "-" + data.getDate(),
 	time: data.getHours() + ":" + data.getMinutes() + ":" + data.getSeconds() + ":" + data.getMilliseconds(),
 	timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 	name: 'Matheus',
