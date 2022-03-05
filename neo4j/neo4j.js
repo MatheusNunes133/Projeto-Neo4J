@@ -14,10 +14,29 @@ const session = driver.session()
 async function createNewUser(req, res){
     const { name, email, data, time, timeZone} = req.body
     try{
-        const query = `create(:Pessoa{name: '${name}', email: '${email}', data: '${data}', time: '${time}', timeZone: '${timeZone}'})`
-        await session.run(query)
-        console.log('Usuário inserido com sucesso!')
-        return res.status(200).send()
+    //Verificando se existem oemails informado registrados no banco
+    const searchQuery = 'match(n) return n'
+    let result = await session.run(searchQuery)
+    let search = 0
+    let resultRecords = result.records
+        resultRecords.forEach(item=>{
+            let fields = item._fields
+                fields.forEach((item2, indice)=>{
+                    if(item2.properties.email == email){
+                        search++
+                    }
+                })
+        })
+        
+        if(search!=1){
+            const query = `create(:Pessoa{name: '${name}', email: '${email}', data: '${data}', time: '${time}', timeZone: '${timeZone}'})`
+            await session.run(query)
+            console.log('Usuário inserido com sucesso!')
+            return res.status(200).send()
+        }else{
+            return res.status(400).send('Email já registrado')
+        }
+        
     }catch(error){
         console.log(error)
     }
