@@ -1,6 +1,5 @@
 require('dotenv').config()
 
-const { query } = require('express')
 const neo4j = require('neo4j-driver')
 
 const uri =  `neo4j://${process.env.NEO4J_HOST}:${process.env.NEO4J_PORT}`
@@ -14,7 +13,7 @@ const session = driver.session()
 async function createNewUser(req, res){
     const { name, email, data, time, timeZone} = req.body
     try{
-    //Verificando se existem oemails informado registrados no banco
+    //Verificando se existem o emails informado registrados no banco
     const searchQuery = 'match(n) return n'
     let result = await session.run(searchQuery)
     let search = 0
